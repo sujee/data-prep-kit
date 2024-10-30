@@ -10,14 +10,13 @@ The code can be run on either
 2.  On your local Python environment.  Here is a quick guide.  You can  find instructions for latest version [here](../../../README.md#-getting-started)
 
 ```bash
-conda create -n data-prep-kit -y python=3.11
-conda activate data-prep-kit
+conda create -n dpk-022dev1-py311 -y python=3.11
+conda activate dpk-022dev1-py311
 
 # install the following in 'data-prep-kit' environment
-pip3 install data-prep-toolkit==0.2.1
-pip3 install data-prep-toolkit-transforms==0.2.1
-pip3 install data-prep-toolkit-transforms-ray==0.2.1
-pip3 install jupyterlab   ipykernel  ipywidgets
+pip3 install --extra-index-url https://testpypi.python.org/pypi 'data-prep-toolkit-transforms==0.2.2.dev1' 
+# pip3 install --extra-index-url https://testpypi.python.org/pypi 'data-prep-toolkit-transforms==0.2.2.dev1' 'data-prep-toolkit-transforms[ray]==0.2.2.dev1'
+pip3 install jupyterlab   ipykernel  ipywidgets  humanfriendly
 
 ## install custom kernel
 ## Important: Use this kernel when running example notebooks!
