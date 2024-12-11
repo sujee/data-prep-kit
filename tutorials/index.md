@@ -10,7 +10,7 @@
 
 This tutorial will cover performing RAG on PDF documents.  We  will use data prep kit to prepare PDF documents (extracting text, cleaning, deduping, chunking and vectorizing).  Then we will load the document chunks into a vector database and query them using an LLM
 
-[Go to tutorial](rag-pdf/index.md)
+[Go to tutorial](rag-pdf/README.md)
 
 
 ## 3 - Preparing HTML documents for RAG
