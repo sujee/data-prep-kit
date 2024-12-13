@@ -52,19 +52,14 @@ Here is the overall workflow (TODO: update)
 
 ![](media/rag-overview-2.png)
 
-RAG pipeline involves 2 distinct phases.
+This tutorial consistss of the following sections:
 
-**Phase 1: Ingest phase**
+- [1 - Getting started](#step-1-getting-started)
+- [2 - Processing PDFs](#step-2-processing-pdfs-ingest)
 
-In this phase, we will process and prepare our data. And save it to a vector database.
+See below for detailed descriptions for each sections and corresponding code.
 
-
-**Phase 2: Query phase**
-
-Query the data that is prepared in phase-1.  We will engage vector database and LLMs.
-
-
-## Step-1: Getting the Code and Getting Started
+## Step-1: Getting Started
 
 Follow this guide to get the code and get your environment setup.
 
@@ -84,7 +79,13 @@ Here we will do the following
 
 [2-processing-pdfs](2-processing-pdfs.md)
 
-## Step-3: Save data into Vector Database
+code: [rag_1A_dpk_process_python.ipynb](../../examples/notebooks/rag/rag_1A_dpk_process_python.ipynb)
+
+## Step-3: Save data into a Vector Database
+
+In this step, we will load the processed PDF data into a vector database
+
+[3-load-data-into-vector-db.md](3-load-data-into-vector-db.md)
 
 ## Step-4: Perform Vector Search
 
