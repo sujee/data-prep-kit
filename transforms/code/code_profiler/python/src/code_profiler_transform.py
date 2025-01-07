@@ -140,7 +140,7 @@ class CodeProfilerTransform(AbstractTableTransform):
             "TypeScript": TYPESCRIPT_LANGUAGE
         }
         self.uast_language_map = {
-            "Agda": AGDA_LANGUAGE,
+            "Agda": 'agda',
             "C": 'c',
             "C#": 'c_sharp',
             "C++": 'cpp',
