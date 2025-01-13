@@ -1,6 +1,7 @@
 ## Data prep kit
-data-prep-toolkit-transforms[all,ray]==0.2.2
-# data-prep-toolkit-transforms[all,ray]==1.0.0a0
+data-prep-toolkit-transforms[language]==1.0.0a3
+# data-prep-toolkit-transforms[all]==1.0.0a3
+# data-prep-toolkit-transforms[ray,all]==1.0.0a3
 
 # Milvus
 pymilvus
