@@ -14,7 +14,12 @@ import os
 import kfp.compiler as compiler
 import kfp.components as comp
 import kfp.dsl as dsl
-from workflow_support.compile_utils import ONE_HOUR_SEC, ONE_WEEK_SEC, ComponentUtils
+from workflow_support.compile_utils import (
+    DEFAULT_KFP_COMPONENT_SPEC_PATH,
+    ONE_HOUR_SEC,
+    ONE_WEEK_SEC,
+    ComponentUtils,
+)
 
 
 # the name of the job script
@@ -27,7 +32,8 @@ base_kfp_image = "quay.io/dataprep1/data-prep-kit/kfp-data-processing:latest"
 # path to kfp component specifications files
 
 # path to kfp component specifications files
-component_spec_path = "../../../../kfp/kfp_ray_components/"
+component_spec_path = os.getenv("KFP_COMPONENT_SPEC_PATH", DEFAULT_KFP_COMPONENT_SPEC_PATH)
+
 
 
 # compute execution parameters. Here different transforms might need different implementations. As
@@ -110,6 +116,7 @@ TASK_NAME: str = "tokenization"
 def tokenization(
     # Ray cluster
     ray_name: str = "tkn-kfp-ray",  # name of Ray cluster
+    ray_run_id_KFPv2: str = "",   # Ray cluster unique ID used only in KFP v2
     # Add image_pull_secret and image_pull_policy to ray workers if needed
     ray_head_options: dict = {"cpu": 1, "memory": 4, "image": task_image},
     ray_worker_options: dict = {
@@ -143,6 +150,7 @@ def tokenization(
     """
     Pipeline to execute tokenization transform
     :param ray_name: name of the Ray cluster
+    :param ray_run_id_KFPv2: a unique string id used for the Ray cluster, applicable only in KFP v2.
     :param ray_head_options: head node options, containing the following:
         cpu - number of cpus
         memory - memory
@@ -181,6 +189,16 @@ def tokenization(
     :param tkn_chunk_size - Specify >0 value to tokenize each row/text in chunks of characters (rounded in words)
     :return: None
     """
+    # In KFPv2 dsl.RUN_ID_PLACEHOLDER is deprecated and cannot be used since SDK 2.5.0. On another hand we cannot create
+    # a unique string in a component (at runtime) and pass it to the `clean_up_task` of `ExitHandler`, due to
+    # https://github.com/kubeflow/pipelines/issues/10187. Therefore, meantime the user is requested to insert
+    # a unique string created at run creation time.
+    if os.getenv("KFPv2", "0") == "1":
+        print("WARNING: the ray cluster name can be non-unique at runtime, please do not execute simultaneous Runs of the "
+              "same version of the same pipeline !!!")
+        run_id = ray_run_id_KFPv2
+    else:
+        run_id = dsl.RUN_ID_PLACEHOLDER
     # create clean_up task
     clean_up_task = cleanup_ray_op(
         ray_name=ray_name, run_id=run_id, server_url=server_url, additional_params=additional_params

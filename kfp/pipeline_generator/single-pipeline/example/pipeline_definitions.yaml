@@ -1,12 +1,11 @@
 pipeline_parameters:
     name: "noop"
     description: "Pipeline for noop task"
-    script_name: "noop_transform.py"
+    script_name: "-m dpk_noop.ray.runtime"
     prefix: ""
     multi_s3: False
     compute_func_name: ""
     compute_func_import: ""
-    component_spec_path: ""
 
 pipeline_common_input_parameters_values:
     kfp_base_image: "quay.io/dataprep1/data-prep-kit/kfp-data-processing:latest"

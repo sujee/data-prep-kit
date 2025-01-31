@@ -91,25 +91,6 @@ class knowledge_base:
 def concept_extractor(libraries, language, ikb):
     """
     Given a set of libraries and the corresponding programming language along with the IKB trie, this function
-    returns the matching concept(s) as a comma separated list joined into a string.
-    """
-    concept_coverage = set()
-    language = language
-    libraries = [item.strip() for item in libraries.split(",")]
-    for library in libraries:
-        if library:
-            extracted_base_name = str.lower(library)
-            matched_entry = ikb.knowledge_base_trie.search(extracted_base_name, language)
-            if matched_entry:
-                concept_coverage.add(matched_entry["Category"].strip())
-            else:
-                ikb.entries_with_null_coverage.add((library, language))
-    return ",".join(sorted(list(concept_coverage)))
-
-
-def concept_extractor(libraries, language, ikb):
-    """
-    Given a set of libraries and the corresponding programming language along with the IKB trie, this function
     returns the matching concept(s) as a comma-separated list joined into a string.
     """
     concept_coverage = set()

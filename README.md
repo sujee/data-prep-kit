@@ -55,70 +55,23 @@ Data modalities supported _today_: Code and Natural Language.
 
 ### Fastest way to experience Data Prep Kit
 
-With no setup necessary, let's use a Google Colab friendly notebook to try Data Prep Kit. This is a simple transform to extract content from PDF files: [examples/notebooks/Run_your_first_transform_colab.ipynb](examples/notebooks/Run_your_first_transform_colab.ipynb)  | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IBM/data-prep-kit/blob/dev/examples/notebooks/Run_your_first_transform_colab.ipynb). ([Here](doc/google-colab.md) are some tips for running Data Prep Kit transforms on Google Colab. For this simple example, these tips are either already taken care of, or are not needed.)
+With no setup necessary, let's use a Google Colab friendly notebook to try Data Prep Kit. This is a simple transform to extract content from PDF files: [examples/notebooks/Run_your_first_transform_colab.ipynb](examples/notebooks/Run_your_first_transform_colab.ipynb)  | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/IBM/data-prep-kit/blob/dev/examples/notebooks/Run_your_first_transform_colab.ipynb). ([Here](doc/google-colab.md) are some tips for running Data Prep Kit transforms on Google Colab. For this simple example, these tips are either already taken care of, or are not needed.)  The same notebook can be downloaded and run on the local machine, without cloning the repo or any other setup. For additional guidance on setting up Jupyter lab, click [here](doc/quick-start/quick-start.md#jupyter). 
 
-### Create a Virtual Environment
+### Install data prep kit from PyPi
 
-To run on a local machine, follow these steps to quickly set up and deploy the Data Prep Kit in your virtual Python environment.
-
-```bash
-conda create -n data-prep-kit -y python=3.11
-conda activate data-prep-kit
-python --version
-```
-
-Check if the python version is 3.11. 
-
-If you are using a linux system, install gcc using the below commands:
+The latest version of the Data Prep Kit is available on PyPi for Python 3.10, 3.11 or 3.12. It can be installed using: 
 
 ```bash
-conda install gcc_linux-64
-conda install gxx_linux-64
+pip install  'data-prep-toolkit-transforms[ray,all]'
 ```
 
-Next, install the data prep toolkit library. This library installs both the python and ray versions of the transforms. For better management of dependencies, it is recommended to install the same tagged version of both the library and the transform. 
+The above installs all available transforms. 
 
+When installing select transforms, users can specify the name of the transform in the pip command, rather than [all]. For example, use the following command to install only the pdf2parquet transform:
 ```bash
-pip3 install  'data-prep-toolkit[ray]==0.2.3'
-pip3 install  'data-prep-toolkit-transforms[all]==0.2.3'
-pip3 install jupyterlab   ipykernel  ipywidgets
-
-## install custom kernel
-python -m ipykernel install --user --name=data-prep-kit --display-name "dataprepkit"
+pip install 'data-prep-toolkit-transforms[pdf2parquet]'
 ```
-
-Test, your installation. If you are able to import these data-prep-kit libraries successfully in python, your installation has succeeded. 
-
-```bash
-## start python interpreter
-$   python
-
-# import DPK libraries
->>> from data_processing_ray.runtime.ray import RayTransformLauncher
->>> from data_processing.runtime.pure_python import PythonTransformLauncher
-```
-
-If there are no errors, you are good to go!
-
-### Run your first transform locally
-
-Let's try the same simple transform to extract content from PDF files on a local machine. 
-
-**Local Notebook versions**
-
-You can try either one or both of the following two versions: 
-
-- Option 1: Pure python notebook: [examples/notebooks/Run_your_first_transform_python.ipynb](examples/notebooks/Run_your_first_transform_python.ipynb) - easiest to get started
-- Option 2: Ray version: This one uses Ray framework for parallel execution while still allowing local processing - [examples/notebooks/Run_your_first_transform_ray.ipynb](examples/notebooks/Run_your_first_transform_ray.ipynb)
-
-
-To run the notebooks, launch jupyter from the same virtual environment you created using the command below. 
-
-`jupyter lab`
-
-After opening the jupyter notebook, change the kernel to `dataprepkit`, so all libraries will be properly loaded.
-
-Explore more examples [here](examples/notebooks).
+For additional guidance on creating the virtual environment for installing the data prep kit, click [here](doc/quick-start/quick-start.md#conda).
 
 ### Run your first data prep pipeline
 
@@ -126,13 +79,15 @@ Now that you have run a single transform, the next step is to explore how to put
 together to run a data prep pipeline for an end to end use case like fine tuning a model or building 
 a RAG application. 
 This [notebook](examples/notebooks/fine%20tuning/code/sample-notebook.ipynb) gives an example of 
-how to build an end to end data prep pipeline for fine tuning for code LLMs. Similarly, this 
-[notebook](examples/notebooks/fine%20tuning/language/demo_with_launcher.ipynb) is a fine tuning 
-example of an end-to-end sample data pipeline designed for processing language datasets. 
+how to build an end to end data prep pipeline for fine tuning for code LLMs. 
 You can also explore how to build a RAG pipeline [here](examples/notebooks/rag).
 
+### Windows users
+
+Please click [here](doc/quick-start/quick-start.md#running-transforms-on-windows) for guidance on how to run transforms in Windows. 
+
 ### Current list of transforms 
-The matrix below shows the the combination of modules and supported runtimes. All the modules can be accessed [here](transforms) and can be combined to form data processing pipelines, as shown in the [examples](examples) folder. 
+The matrix below shows the the combination of modules and supported runtimes. All the modules can be accessed [here](transforms) and can be combined to form data processing pipelines, as shown in the [examples](examples/notebooks) folder. 
 
 
 | Modules                                                                              |    Python-only     |        Ray         |       Spark        |     KFP on Ray     |
@@ -221,9 +176,6 @@ When you finish working with the cluster, and want to clean up or destroy it. Se
 ### Run your first transform using command line options
 
 You can run transforms via docker image or using virtual environments. This [document](doc/quick-start/run-transform-venv.md) shows how to run a transform using virtual environment. You can follow this [document](doc/quick-start/run-transform-image.md) to run using docker image. 
-
-
-
 
 ## Citations <a name = "citations"></a>
 

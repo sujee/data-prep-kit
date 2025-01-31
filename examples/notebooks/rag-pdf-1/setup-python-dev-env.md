@@ -17,16 +17,16 @@ We will create an environment for this workshop with all the required libraries 
 ### A-1: Setup a conda env
 
 ```bash
-conda create -n data-prep-kit-1 -y python=3.11
+conda create -n data-prep-kit-rag -y python=3.11
 ```
 
 activate the new conda environment
 
 ```bash
-conda activate data-prep-kit-1
+conda activate data-prep-kit-rag
 ```
 
-Make sure env is swithced to data-prep-kit-1
+Make sure env is swithced to data-prep-kit-rag
 
 Check python version
 
@@ -47,7 +47,7 @@ conda install -y gxx_linux-64
 ### A-2: Install dependencies
 
 ```bash
-cd examples/notebooks/rag
+cd examples/notebooks/rag-pdf-1
 ```
 
 ```bash

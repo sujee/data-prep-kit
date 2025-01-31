@@ -15,7 +15,12 @@ import kfp.compiler as compiler
 import kfp.components as comp
 import kfp.dsl as dsl
 from src.ededup_compute_execution_params import ededup_compute_execution_params
-from workflow_support.compile_utils import ONE_HOUR_SEC, ONE_WEEK_SEC, ComponentUtils
+from workflow_support.compile_utils import (
+    DEFAULT_KFP_COMPONENT_SPEC_PATH,
+    ONE_HOUR_SEC,
+    ONE_WEEK_SEC,
+    ComponentUtils,
+)
 
 
 task_image = "quay.io/dataprep1/data-prep-kit/ededup-ray:latest"
@@ -27,7 +32,8 @@ EXEC_SCRIPT_NAME: str = "-m dpk_ededup.ray.transform"
 base_kfp_image = "quay.io/dataprep1/data-prep-kit/kfp-data-processing:latest"
 
 # path to kfp component specifications files
-component_spec_path = "../../../../kfp/kfp_ray_components/"
+component_spec_path = os.getenv("KFP_COMPONENT_SPEC_PATH", DEFAULT_KFP_COMPONENT_SPEC_PATH)
+
 
 # KFPv1 and KFP2 uses different methods to create a component from a function. KFPv1 uses the
 # `create_component_from_func` function, but it is deprecated by KFPv2 and so has a different import path.
@@ -43,11 +49,7 @@ if os.getenv("KFPv2", "0") == "1":
     compute_exec_params_op = dsl.component_decorator.component(
         func=ededup_compute_execution_params, base_image=base_kfp_image
     )
-    print(
-        "WARNING: the ray cluster name can be non-unique at runtime, please do not execute simultaneous Runs of the "
-        + "same version of the same pipeline !!!"
-    )
-    run_id = uuid.uuid4().hex
+    
 else:
     compute_exec_params_op = comp.create_component_from_func(
         func=ededup_compute_execution_params, base_image=base_kfp_image
@@ -72,6 +74,7 @@ TASK_NAME: str = "ededup"
 def ededup(
     # Ray cluster
     ray_name: str = "ededup-kfp-ray",  # name of Ray cluster
+    ray_run_id_KFPv2: str = "",   # Ray cluster unique ID used only in KFP v2
     # Add image_pull_secret and image_pull_policy to ray workers if needed
     ray_head_options: dict = {"cpu": 1, "memory": 4, "image": task_image},
     ray_worker_options: dict = {
@@ -105,6 +108,7 @@ def ededup(
     """
     Pipeline to execute EDEDUP transform
     :param ray_name: name of the Ray cluster
+    :param ray_run_id_KFPv2: a unique string id used for the Ray cluster, applicable only in KFP v2.
     :param ray_head_options: head node options, containing the following:
         cpu - number of cpus
         memory - memory
@@ -142,6 +146,16 @@ def ededup(
     :param ededup_n_samples - number of samples for parameters computation
     :return: None
     """
+    # In KFPv2 dsl.RUN_ID_PLACEHOLDER is deprecated and cannot be used since SDK 2.5.0. On another hand we cannot create
+    # a unique string in a component (at runtime) and pass it to the `clean_up_task` of `ExitHandler`, due to
+    # https://github.com/kubeflow/pipelines/issues/10187. Therefore, meantime the user is requested to insert
+    # a unique string created at run creation time.
+    if os.getenv("KFPv2", "0") == "1":
+        print("WARNING: the ray cluster name can be non-unique at runtime, please do not execute simultaneous Runs of the "
+              "same version of the same pipeline !!!")
+        run_id = ray_run_id_KFPv2
+    else:
+        run_id = dsl.RUN_ID_PLACEHOLDER
     # create clean_up task
     clean_up_task = cleanup_ray_op(
         ray_name=ray_name, run_id=run_id, server_url=server_url, additional_params=additional_params

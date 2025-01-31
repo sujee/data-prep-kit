@@ -12,7 +12,7 @@ worflow-clean:: .workflows.clean
 .PHONY: workflow-build
 workflow-build: workflow-venv
 	@for file in $(YAML_WF); do \
-		$(MAKE) $$file;       \
+		$(MAKE) KFP_COMPONENT_SPEC_PATH=${REPOROOT}/kfp/kfp_ray_components/ $$file;       \
 	done
 
 workflow-test::
