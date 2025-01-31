@@ -55,7 +55,7 @@ Here is the overall workflow
 This tutorial consistss of the following sections:
 
 - [1 - Getting started](#step-1-getting-started)
-- [2 - Processing PDFs](#step-2-processing-pdfs-ingest)
+- [2 - Processing PDFs](#step-2-processing-pdfs-using-data-prep-kit)
 - Dedupe
 - Chunking
 - Creating embeddings
