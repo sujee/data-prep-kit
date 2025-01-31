@@ -48,7 +48,7 @@ These are good references to RAG:
 
 ## Overview
 
-Here is the overall workflow (TODO: update)
+Here is the overall workflow
 
 ![](media/rag-overview-2.png)
 
@@ -56,6 +56,9 @@ This tutorial consistss of the following sections:
 
 - [1 - Getting started](#step-1-getting-started)
 - [2 - Processing PDFs](#step-2-processing-pdfs-ingest)
+- Dedupe
+- Chunking
+- Creating embeddings
 
 See below for detailed descriptions for each sections and corresponding code.
 
@@ -66,20 +69,18 @@ Follow this guide to get the code and get your environment setup.
 [1-getting-started.md](1-getting-started.md)
 
 
-
-
-## Step-2: Processing PDFs (Ingest)
+## Step-2: Processing PDFs Using Data Prep Kit
 
 Here we will do the following
 
-- Process PDF files
+- Extract content from PDF files
 - Perform de-duplication of documents
 - Split the documents as chunks
 - Vectorize the chunks
 
 [2-processing-pdfs](2-processing-pdfs.md)
 
-code: [rag_1A_dpk_process_python.ipynb](../../examples/notebooks/rag/rag_1A_dpk_process_python.ipynb)
+code: [rag_1_dpk_process_python.ipynb](../../examples/notebooks/rag-pdf-1/rag_1_dpk_process_python.ipynb)
 
 ## Step-3: Save data into a Vector Database
 

@@ -11,7 +11,7 @@ Please complete these steps:
 
 ## Step-1: Download the code
 
-The code for RAG is [here](https://github.com/IBM/data-prep-kit/tree/dev/examples/notebooks/rag)
+The code for RAG is [here](https://github.com/IBM/data-prep-kit/tree/dev/examples/notebooks/rag-pdf)
 
 Start by cloning the repository
 
@@ -19,13 +19,13 @@ Start by cloning the repository
 git    clone    https://github.com/IBM/data-prep-kit
 ```
 
-The code for this tutorial is in this directory: `examples/notebooks/rag` .
+The code for this tutorial is in this directory: `examples/notebooks/rag-pdf` .
 
 All files referred in this tutorial are in this folder.
 
 Go to the project directory
 
-`cd   data-prep-kit/examples/notebooks/rag`
+`cd   data-prep-kit/examples/notebooks/rag-pdf-1`
 
 
 ## Step-2: Setting up Python Dev Environment
@@ -48,16 +48,16 @@ We will create an environment for this workshop with all the required libraries 
 #### 2A.1: Setup a conda env
 
 ```bash
-conda create -n data-prep-kit-1 -y python=3.11
+conda create -n data-prep-kit-rag -y python=3.11
 ```
 
 activate the new conda environment
 
 ```bash
-conda activate data-prep-kit-1
+conda activate data-prep-kit-rag
 ```
 
-Make sure env is swithced to data-prep-kit-1
+Make sure env is swithced to **data-prep-kit-rag**
 
 Check python version
 
@@ -78,7 +78,7 @@ conda install gxx_linux-64
 #### 2A.2: Install dependencies
 
 
-Install requirements.txt from project directory: `examples/notebooks/rag`
+Install requirements.txt from project directory: `examples/notebooks/rag-pdf`
 
 ```bash
 pip  install  -r requirements.txt
@@ -104,7 +104,7 @@ python --version
 #### 2B.2: Create a venv
 
 ```bash
-cd examples/notebooks/rag
+cd examples/notebooks/rag-pdf
 
 
 python -m venv venv
@@ -133,4 +133,10 @@ Get a **free** account at [replicate](https://replicate.com/home)
 
 The free account will give you a few API calls for free.  That is enough for this tutorial.
 
-Once you sign up, **create a token**
+Once you sign up, **create a token** by following these steps.
+
+- Go to **Account**
+- And select **API tokens**
+- Create a new token, called **rag-1** (you can use any name)
+
+![](media/replicate-1.png)

@@ -2,7 +2,7 @@
 
 At this stage, we are going to save the processed PDF data into a vector database.
 
-code : [rag_1B_load_data_into_milvus.ipynb](../../examples/notebooks/rag/rag_1B_load_data_into_milvus.ipynb)
+code : [rag_1B_load_data_into_milvus.ipynb](../../examples/notebooks/rag-pdf/rag_1B_load_data_into_milvus.ipynb)
 
 
 ##  Milvus - An Open Source Vector Database
