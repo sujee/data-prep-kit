@@ -80,7 +80,7 @@ Here we will do the following
 
 [2-processing-pdfs](2-processing-pdfs.md)
 
-code: [rag_1_dpk_process_python.ipynb](../../examples/notebooks/rag-pdf-1/rag_1_dpk_process_python.ipynb)
+code: [rag_2_load_data_into_milvus.ipynb](../../examples/notebooks/rag-pdf-1/rag_2_load_data_into_milvus.ipynb)
 
 ## Step-3: Save data into a Vector Database
 

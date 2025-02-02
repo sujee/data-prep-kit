@@ -9,6 +9,9 @@ In this stage, we will process PDF documents to prepare them for Retrieval Augme
 
 You can find the code for this process in [rag_1_dpk_process_python.ipynb](../../examples/notebooks/rag-pdf-1/rag_1_dpk_process_python.ipynb)
 
+<img src="media/rag-overview-2a.png" style="max-width:90%;"/>
+
+
 
 ## Step-1: Configuration
 
