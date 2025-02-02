@@ -1,39 +1,40 @@
 # 3 - Load Data into a Vector Database
 
-At this stage, we are going to save the processed PDF data into a vector database.
+Now that we've processed our PDF data, the next step is to store it in a **vector database** for efficient retrieval. In this guide, we'll be using **Milvus**, a powerful open-source vector database designed for handling unstructured data like text embeddings. 
 
-code: [rag_2_load_data_into_milvus.ipynb](../../examples/notebooks/rag-pdf-1/rag_2_load_data_into_milvus.ipynb)
+💻 **Code Reference**: [rag_2_load_data_into_milvus.ipynb](../../examples/notebooks/rag-pdf-1/rag_2_load_data_into_milvus.ipynb)
 
 
 <img src="media/rag-overview-2b.png" style="max-width:90%;"/>
 
+---
 
+##  Why Milvus?
 
-##  Milvus - An Open Source Vector Database
+Milvus is built for high-performance **vector similarity search** and is optimized for working with embeddings generated from text, images, and audio. It allows for fast and scalable querying, making it ideal for **retrieval-augmented generation (RAG) workflows** like ours.  
 
-Our vector database of chioce is **Milvus**
+🔗 Learn more about Milvus: [milvus.io](https://milvus.io/)
 
-Milvus is an open-source vector database designed to manage and query large-scale vector data. Built to handle unstructured data like embeddings from text, images, and audio, Milvus is highly optimized for similarity search and nearest neighbor search. 
+---
 
-Read more about Milvus at [milvus.io](https://milvus.io/)
+## Step-1: Load Configuration
 
-## Step-1: Loading Configuration
+Before we begin, let’s import our configuration settings:  
+
 
 ```python
 from my_config import MY_CONFIG
 ```
+---
 
-## Step-2: Loading Processed PDF data
+## Step-2: Load Processed PDF data
 
-We will load the data saved from previous stage (pdf2parquet) from `output/output_final`
+We'll now load the data we saved in the previous step (**pdf2parquet**) from the `output/output_final` directory. This folder contains **Parquet** files—one for each input PDF. 
 
-This directory will contain a bunch of parquet files - one for each input PDF.
+The following code does the following:
 
-The following code will load all pq files:
-
-- It reads individual parquet files using pandas `pandas.read_parquet`
-- Then it merges all dataframes into one (`data_df`) using `pandas.concat` method
-
+- Reads all Parquet files using `pandas.read_parquet`  
+-  Combines them into a single DataFrame using `pandas.concat`  
 
 ```python
 import pandas as pd
@@ -54,18 +55,24 @@ for file in parquet_files:
 data_df = pd.concat(dfs, ignore_index=True)
 ```
 
-We are also renaming the dataframes columns as follows, so we confirm to Milvus client library convention.
+We are also renaming the  columns as follows, to match Milvus’ expected format.
 
 - `embeddings` --> `vector`
 - `contents` --> `text`
 
-At the end of this step, out data will look like this:
+```python
+data_df = data_df.rename( columns= {'embeddings' : 'vector', 'contents' : 'text'})
+```
+
+**After this step, our processed data looks like this:** 
 
 <img src="media/loading-to-milvus-1.png" style="max-width:90%;"/>
 
-## Step-3: Connecting to Milvus Database
+---
 
-In this step we  are connecting to an embedded Milvus instance - it is a file named `rag_1_dpk.db`.  For examples, embedded databases are fine.  In production we would connect to an instance running in the cloud.
+## Step-3: Connect to Milvus
+
+We’re connecting to an **embedded Milvus instance** (a local database file `rag_1_dpk.db`). While this works for testing, in production, you’d connect to a cloud-hosted instance.  
 
 ```python
 from pymilvus import MilvusClient
@@ -73,23 +80,24 @@ from pymilvus import MilvusClient
 milvus_client = MilvusClient(MY_CONFIG.DB_URI)
 ```
 
-## Step-4: Creating a Milvus Collection
+---
 
-First we clear the collection if it exists -- so the data import is clean.
+## Step-4: Create a Milvus Collection
+
+Before inserting data, we **clear any existing collection** to ensure a fresh import.  
 
 Then we are creating a collection with these properties:
 
-- **`collection_name = 'dpk_papers'`** : name of collection
-- **`dimension=384`**: This should match the embedding model's (that we used to create embeddings for chunks) output length.
-- **`metric_type='IP'`**: This the metric to be used when finding similar items.  IP = Inner product distance
-- **`consistency_level='Strong'`**: Milvus supports various consistency levels.  For more details, check [Milvus documentation](https://milvus.io/docs/consistency.md)
-- **`auto_id=True`** : Milvus will assign primary ids as we insert data.
+- **`collection_name = 'dpk_papers'`** → name of our collection
+- **`dimension=384`**: → Matches the output length of our embedding model  
+- **`metric_type='IP'`** → Uses **Inner Product Distance** for similarity search
+- **`consistency_level='Strong'`** → Ensures consistent query results.  For more details, check [Milvus documentation](https://milvus.io/docs/consistency.md)
+- **`auto_id=True`** → Milvus assigns primary IDs automatically  
 
-Consult [Milvus collection documentation](https://milvus.io/docs/create-collection.md) for a deep dive into creating collections.
+🔗 **More on Milvus collections**: [Milvus Docs](https://milvus.io/docs/create-collection.md) 
 
 
-Here is the (abbreviated) code.
-
+### **Code: Creating the Collection**  
 
 ```python
 # if we already have a collection, clear it first
@@ -106,7 +114,11 @@ milvus_client.create_collection(
 )
 ```
 
-Then we insert the the data into the collection.
+---
+
+## Step 5: Insert Data into Milvus
+
+Now that our collection is set up, let’s **insert our processed data** into Milvus.  
 
 ```python
 res = milvus_client.insert(collection_name='dpk_papers', 
@@ -116,20 +128,28 @@ print('inserted # rows', res['insert_count'])
 milvus_client.get_collection_stats('dpk_papers')
 ```
 
-Output is 
+**Example Output:**  
 
 ```text
 inserted # rows 60
 ```
 
-And finally we close the Milvus connection
+---
+
+## Step 6: Close the Connection
+
+Once the data is successfully stored, we **close the Milvus connection** to free up resources.  
 
 ```python
 milvus_client.close()
 ```
 
-## Conclusion
+---
 
-In this step, we have loaded processed chunks into Milvus database.
+## Wrapping Up
 
-Next step is performing vector search on our data.
+In this guide, we:  
+✔ Created a **vector collection** for similarity search  in Milvus  
+✔ Loaded processed PDF data into **Milvus**  
+
+🚀 **Next up:** Performing **vector search** to retrieve relevant content from our dataset!  
