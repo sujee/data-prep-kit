@@ -132,4 +132,4 @@ milvus_client.close()
 
 In this step, we have loaded processed chunks into Milvus database.
 
-Next step is performing vector search on our data.
+Next step is [performing vector search on our data](4-vector-search.md)
