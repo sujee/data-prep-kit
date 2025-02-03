@@ -56,8 +56,6 @@ This tutorial consistss of the following sections:
 
 - [1 - Getting started](#step-1-getting-started)
 - [2 - Processing PDFs](#step-2-processing-pdfs-using-data-prep-kit)
-- Dedupe
-- Chunking
 - Creating embeddings
 
 See below for detailed descriptions for each sections and corresponding code.
@@ -66,7 +64,7 @@ See below for detailed descriptions for each sections and corresponding code.
 
 Follow this guide to get the code and get your environment setup.
 
-[1-getting-started.md](1-getting-started.md)
+[Guide](1-getting-started.md)
 
 
 ## Step-2: Processing PDFs Using Data Prep Kit
@@ -78,16 +76,19 @@ Here we will do the following
 - Split the documents as chunks
 - Vectorize the chunks
 
-[2-processing-pdfs](2-processing-pdfs.md)
-
-code: [rag_2_load_data_into_milvus.ipynb](../../examples/notebooks/rag-pdf-1/rag_2_load_data_into_milvus.ipynb)
+[Guide](2-processing-pdfs.md)  | [code](../../examples/notebooks/rag-pdf-1/rag_2_load_data_into_milvus.ipynb)
 
 ## Step-3: Save data into a Vector Database
 
-In this step, we will load the processed PDF data into a vector database
+We will load the processed PDF data into a vector database
 
-[3-load-data-into-vector-db.md](3-load-data-into-vector-db.md)
+[Guide](3-load-data-into-vector-db.md)  | [code](../../examples/notebooks/rag-pdf-1/rag_2_load_data_into_milvus.ipynb)
 
 ## Step-4: Perform Vector Search
+
+Perform vector search on our documents.
+
+[Guide](4-vector-search.md)  | [code](../../examples/notebooks/rag-pdf-1/rag_3_vector_search.ipynb)
+
 
 ## Step-5: Query the Documents Using LLM

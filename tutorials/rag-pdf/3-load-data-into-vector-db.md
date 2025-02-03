@@ -148,4 +148,4 @@ milvus_client.close()
 
 ## Wrapping Up
 
-🚀 **Next up:** Performing **vector search** to retrieve relevant content from our dataset!  
+🚀 **Next up:** Performing **[vector search](4-vector-search.md)** to retrieve relevant content from our dataset!  
