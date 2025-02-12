@@ -19,7 +19,7 @@ Start by cloning the repository
 git    clone    https://github.com/IBM/data-prep-kit
 ```
 
-The code for this tutorial is in this directory: `examples/notebooks/rag-pdf` .
+The code for this tutorial is in this directory: `examples/notebooks/rag-pdf-1` .
 
 All files referred in this tutorial are in this folder.
 

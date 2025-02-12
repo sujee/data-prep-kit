@@ -17,34 +17,27 @@ The following diagram illustrates the RAG pipeline workflow that you will implem
 To follow along, you’ll need:
 
 - A local Python development environment.  While you can use an [Anaconda Python envronment](https://www.anaconda.com/download/), other tutorials in the Data Prep Kit learning path have used a Python virtual environment on Python v3.11.
-- The [code](https://github.com/IBM/data-prep-kit/tree/dev/examples/notebooks/rag-pdf) for this tutorial.  Clone the Data Prep Kit repo locally, and you'll find the Jupyter Notebook in the `examples/notebooks/rag-pdf-1` directory.
+- The [code](https://github.com/IBM/data-prep-kit/tree/dev/examples/notebooks/rag-pdf-1) for this tutorial.  Clone the Data Prep Kit repo locally, and you'll find the Jupyter Notebook in the `examples/notebooks/rag-pdf-1` directory.
 - A (free) account at [Replicate](https://replicate.com/) to query LLMs. Use [this invite](https://replicate.com/invites/a8717bfe-2f3d-4a52-88ed-1356231cdf03) to add some credit to your Replicate account! The free account will give you a few API calls for free. That is enough for this tutorial.  Once you sign up, create a token by going to your account, selecting API tokens, and creating a new token, called rag-1 (you can use any name).
 
 ## Steps
 
 The tutorial is structured into five steps (click on the links to jump to the section)
 
-1. **[Getting Started](#Step 1-getting-started)** – Set up your environment.
-2. **[Processing PDFs](#Step 1-processing-pdfs-using-data-prep-kit)** – Extract, clean, and chunk documents.
+1. **[Getting Started](#step-1-getting-started)** – Set up your environment.
+2. **[Processing PDFs](#step-2-processing-pdfs-using-data-prep-kit)** – Extract, clean, and chunk documents.
 3. **[Saving Data in a Vector Database](#step-3-storing-data-in-a-vector-database)** – Store processed data efficiently.
 4. **[Performing Vector Searches](#step-4-performing-vector-search)** – Retrieve relevant document chunks.
 5. **[Querying Documents Using LLMs](#step-5-querying-documents-using-llms)** – Interact with your documents via an LLM.
 
-
-Retrieval-augmented generation (RAG) enhances large language models (LLMs) by providing them with relevant, domain-specific information that they wouldn't otherwise know. LLMs are trained on vast amounts of public data but lack access to private or proprietary information. RAG solves this problem by retrieving relevant contextual information and feeding it to the model, thereby improving accuracy and reducing hallucinations.
-
-RAG is widely used for question-answering systems, customer support automation, and knowledge-based AI applications. For an in-depth understanding, check out [What is Retrieval-Augmented Generation?](https://research.ibm.com/blog/retrieval-augmented-generation-RAG)
-
-This tutorial will walk you through preparing PDF documents for a RAG pipeline and running queries on them effectively.
-
-The following diagram illustrates the RAG pipeline workflow that you will implement in this tutorial.
+---
 
 ## Step 1: Getting Started
 
 
 ### Step 1.1: Download the code
 
-The code for RAG is [here](https://github.com/IBM/data-prep-kit/tree/dev/examples/notebooks/rag-pdf)
+The code for RAG is [here](https://github.com/IBM/data-prep-kit/tree/dev/examples/notebooks/rag-pdf-1)
 
 Start by cloning the repository
 
@@ -52,7 +45,7 @@ Start by cloning the repository
 git    clone    https://github.com/IBM/data-prep-kit
 ```
 
-The code for this tutorial is in this directory: `examples/notebooks/rag-pdf` .
+The code for this tutorial is in this directory: `examples/notebooks/rag-pdf-1` .
 
 All files referred in this tutorial are in this folder.
 
