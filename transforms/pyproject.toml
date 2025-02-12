@@ -87,7 +87,8 @@ language = { file = [
 "universal/tokenization/requirements.txt",
 "universal/web2parquet/requirements.txt",
 "universal/profiler/requirements.txt",
-"universal/resize/requirements.txt"
+"universal/resize/requirements.txt",
+"universal/rep_removal/requirements.txt"
 ]}
 
 # pyproject.toml must be in a parent and cannot be in sibling
