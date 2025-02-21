@@ -155,7 +155,7 @@ MY_CONFIG.COLLECTION_NAME = 'dpk_papers'
 
 
 ## Embedding model
-MY_CONFIG.EMBEDDING_MODEL = 'sentence-transformers/all-MiniLM-L6-v2'
+MY_CONFIG.EMBEDDING_MODEL = 'ibm-granite/granite-embedding-30m-english'
 MY_CONFIG.EMBEDDING_LENGTH = 384
 
 ## LLM Model
@@ -453,14 +453,14 @@ from dpk_text_encoder.transform_python import TextEncoder
 
 result = TextEncoder(input_folder= 'output/03_chunk_out', 
                     output_folder= 'output/04_embeddings_out', 
-                    text_encoder_model_name = 'sentence-transformers/all-MiniLM-L6-v2'
+                    text_encoder_model_name = 'ibm-granite/granite-embedding-30m-english'
                     ).transform()
 ```
 
 Parameters:
 
 - **`input_folder` and `output_folder`** are respectively for reading and writing 
-- **`text_encoder_model_name = 'sentence-transformers/all-MiniLM-L6-v2'`** - Here we can specify any open source embedding model.  There are numerous embedding models we can use.  We are using **sentence-transformers/all-MiniLM-L6-v2** as it is a small model (hence quick to run) and gives decent results. [Hugging Face's embedding model leaderboard](https://huggingface.co/spaces/mteb/leaderboard) is an excellent resource for finding suitable embedding models.
+- **`text_encoder_model_name = 'ibm-granite/granite-embedding-30m-english'`** - Here we can specify any open source embedding model.  There are numerous embedding models we can use.  We are using **ibm-granite/granite-embedding-30m-english** as it is a small model (hence quick to run) and gives decent results. [Hugging Face's embedding model leaderboard](https://huggingface.co/spaces/mteb/leaderboard) is an excellent resource for finding suitable embedding models.
 
 ### Step 2.11: Understanding embedding output
 
