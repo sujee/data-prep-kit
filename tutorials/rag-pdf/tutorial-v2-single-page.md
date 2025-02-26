@@ -747,16 +747,14 @@ This will output the top matches, ranked by **search score** (higher scores indi
 ```text
 num results :  5
 ------ result 1 --------
-search score: 0.5530709028244019
+search score: 0.8260288238525391
 filename: granite.pdf
 text: ...
 
-
- ------ result 2 --------
-search score: 0.477556437253952
+------ result 2 --------
+search score: 0.7880659699440002
 filename: granite.pdf
 text: ...
-
 ...
 ```
 
@@ -789,7 +787,24 @@ from my_config import MY_CONFIG
 
 We need to load the **`REPLICATE_API_TOKEN`** from our `.env` file to authenticate API calls to the **Replicate** service.
 
-Code:
+
+### 💡 **Why Use `.env` Files?**
+
+`.env` files store sensitive configurations such as database passwords and API keys. These files should remain private and should not be checked into the codebase.
+
+Create a file named `.env` (note that the file name is starting with a dot!) in the same exampled folder.
+
+The .env file will look like this
+
+```text
+REPLICATE_API_TOKEN=xyz
+```
+
+Replace `xyz` with the Replicate token you created from **prerequisites** section.
+
+
+
+Here is the code:
 
 ```python
 from dotenv import find_dotenv, dotenv_values
@@ -799,9 +814,8 @@ config = dotenv_values(find_dotenv())
 MY_CONFIG.REPLICATE_API_TOKEN = config.get('REPLICATE_API_TOKEN')
 ```
 
-### 💡 **Why Use `.env` Files?**
 
-`.env` files store sensitive configurations such as database passwords and API keys. These files should remain private and should not be checked into the codebase.
+
 
 
 ### Step 5.3: Connect to Vector Database
@@ -944,7 +958,7 @@ ask_LLM(question=question, relevant_docs=relevant_docs)
 **Expected Output:**
 
 ```text
-The Granite Code Instruct models were trained on a combination of permissively licensed data, including the Code Commits Dataset (CommitPackFT) and Math Datasets (MathInstruct and MetaMathQA). Additionally, they were trained on Code Instruction Datasets such as Glaive-Code-Assistant-v3, Self-OSS-Instruct-SC2, Glaive-Function-Calling-v2, and NL2SQL.
+Granite Code models were trained on 3.5T to 4.5T tokens of code data and natural language datasets related to code. The code data comprised 116 languages, and the natural language datasets included high-quality data from various domains such as technical, mathematics, and web documents. During phase 1, the models were trained solely on code data, while in phase 2, additional high-quality language data was included to improve the model's performance in reasoning and problem-solving skills.
 ```
 
 ✅ The model provides a precise response based on the available documents.
